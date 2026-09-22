@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A modern, responsive, precision calculator web application with dark mode, calculation history, keyboard shortcuts, and safe math evaluation." />
+  <title>Calculator | Modern Glass Web App</title>
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="bg-glow blob-1"></div>
+  <div class="bg-glow blob-2"></div>
+  <div class="bg-glow blob-3"></div>
+
+  <div class="app-wrapper">
+    <!-- Header Controls -->
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+            <line x1="8" y1="6" x2="16" y2="6"></line>
+            <line x1="16" y1="14" x2="16" y2="18"></line>
+            <path d="M16 10h.01"></path>
+            <path d="M12 10h.01"></path>
+            <path d="M8 10h.01"></path>
+            <path d="M12 14h.01"></path>
+            <path d="M8 14h.01"></path>
+            <path d="M12 18h.01"></path>
+            <path d="M8 18h.01"></path>
+          </svg>
+        </span>
+        <h1 class="brand-title">Calculator</h1>
+      </div>
+
+      <div class="header-actions">
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" class="icon-btn" title="Toggle Theme (Dark / Light / Neon)" aria-label="Toggle Theme">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <!-- History Drawer Toggle -->
+        <button id="historyToggleBtn" class="icon-btn" title="View Calculation History" aria-label="View History">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 8v4l3 3"></path>
+            <path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5"></path>
+          </svg>
+        </button>
+
+        <!-- Keyboard Shortcuts Info -->
+        <button id="shortcutsBtn" class="icon-btn" title="Keyboard Shortcuts" aria-label="Keyboard Shortcuts">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M8 16h8"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Calculator Card -->
+    <main class="calculator-card">
+      <!-- Display Screen Area -->
+      <section class="display-container" id="displayContainer" title="Click to copy result">
+        <div class="display-header">
+          <span class="history-badge" id="historyBadge">History</span>
+          <button id="copyBtn" class="copy-btn" title="Copy result to clipboard">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+        <!-- Upper Expression Line -->
+        <div class="expression-line" id="expression"></div>
+        <!-- Main Result Line -->
+        <div class="result-line" id="result" role="status" aria-live="polite">0</div>
+      </section>
+
+      <!-- Keypad Grid -->
+      <section class="keypad" id="keypad">
+        <!-- Function & Special Row 1 -->
+        <button class="btn btn-func btn-clear" data-action="clear" id="btn-clear" title="Clear (Escape)">AC</button>
+        <button class="btn btn-func" data-action="backspace" id="btn-backspace" title="Backspace (Backspace)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+            <line x1="18" y1="9" x2="12" y2="15"></line>
+            <line x1="12" y1="9" x2="18" y2="15"></line>
+          </svg>
+        </button>
+        <button class="btn btn-func" data-action="percent" data-key="%" id="btn-percent" title="Percentage (%)">%</button>
+        <button class="btn btn-operator" data-action="operator" data-value="÷" data-key="/" id="btn-divide" title="Divide (/)">÷</button>
+
+        <!-- Scientific / Extra Quick Access Row -->
+        <button class="btn btn-scientific" data-action="sqrt" id="btn-sqrt" title="Square Root (√)">√x</button>
+        <button class="btn btn-scientific" data-action="square" id="btn-square" title="Square (x²)">x²</button>
+        <button class="btn btn-scientific" data-action="toggle-sign" id="btn-sign" title="Toggle Sign (±)">±</button>
+        <button class="btn btn-operator" data-action="operator" data-value="×" data-key="*" id="btn-multiply" title="Multiply (*)">×</button>
+
+        <!-- Numbers Row 7, 8, 9 & Subtract -->
+        <button class="btn btn-number" data-value="7" data-key="7">7</button>
+        <button class="btn btn-number" data-value="8" data-key="8">8</button>
+        <button class="btn btn-number" data-value="9" data-key="9">9</button>
+        <button class="btn btn-operator" data-action="operator" data-value="−" data-key="-" id="btn-subtract" title="Subtract (-)">−</button>
+
+        <!-- Numbers Row 4, 5, 6 & Add -->
+        <button class="btn btn-number" data-value="4" data-key="4">4</button>
+        <button class="btn btn-number" data-value="5" data-key="5">5</button>
+        <button class="btn btn-number" data-value="6" data-key="6">6</button>
+        <button class="btn btn-operator" data-action="operator" data-value="+" data-key="+" id="btn-add" title="Add (+)">+</button>
+
+        <!-- Numbers Row 1, 2, 3 & Equals (Span vertically or occupy Grid) -->
+        <button class="btn btn-number" data-value="1" data-key="1">1</button>
+        <button class="btn btn-number" data-value="2" data-key="2">2</button>
+        <button class="btn btn-number" data-value="3" data-key="3">3</button>
+
+        <!-- Row 5: 0, Decimal, Equals -->
+        <button class="btn btn-number btn-zero" data-value="0" data-key="0">0</button>
+        <button class="btn btn-number" data-value="." data-key="." id="btn-decimal" title="Decimal Point (.)">.</button>
+        <button class="btn btn-equals" data-action="calculate" data-key="Enter" id="btn-equals" title="Calculate (Enter or =)">=</button>
+      </section>
+    </main>
+
+    <!-- Footer Tagline -->
+    <footer class="app-footer">
+      <p>Precision Glass Calculator &bull; Keyboard Supported</p>
+    </footer>
+  </div>
+
+  <!-- History Side Panel / Drawer -->
+  <aside class="history-drawer" id="historyDrawer" aria-label="Calculation History">
+    <div class="drawer-header">
+      <h3>History Log</h3>
+      <div class="drawer-actions">
+        <button id="clearHistoryBtn" class="text-btn" title="Clear all history">Clear</button>
+        <button id="closeHistoryBtn" class="icon-btn-sm" title="Close drawer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="history-list" id="historyList">
+      <div class="empty-history">No calculations recorded yet.</div>
+    </div>
+  </aside>
+
+  <!-- Overlay backdrop for drawer & modals -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="modal" id="shortcutsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Keyboard Shortcuts</h3>
+        <button id="closeShortcutsBtn" class="icon-btn-sm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="shortcut-row"><kbd>0</kbd> – <kbd>9</kbd> <span>Enter Numbers</span></div>
+        <div class="shortcut-row"><kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd> <span>Arithmetic Operators</span></div>
+        <div class="shortcut-row"><kbd>.</kbd> <span>Decimal Point</span></div>
+        <div class="shortcut-row"><kbd>Enter</kbd> or <kbd>=</kbd> <span>Calculate Result</span></div>
+        <div class="shortcut-row"><kbd>Backspace</kbd> <span>Delete last character</span></div>
+        <div class="shortcut-row"><kbd>Escape</kbd> or <kbd>C</kbd> <span>Clear Calculator (AC)</span></div>
+        <div class="shortcut-row"><kbd>%</kbd> <span>Percentage</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast" role="alert" aria-live="assertive">Copied to clipboard!</div>
+
+  <!-- Application Logic JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
